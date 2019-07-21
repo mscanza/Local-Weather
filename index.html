@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./style.css" type="text/css">
     <title>Local Weather</title>
 </head>
 <body>
-    
+    <main id="container">
+        <h1 id="city">Los Angeles</h1>
+        <h2>May 24, 2019</h2>
+        <h3 id="time"></h3>
+        <img id="weather-image" src="data:image/png;base64,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" alt="Weather image.">
+        <h3>77˚ F</h3>
+
+    </main>
+    <script src="./main.js"></script>
 </body>
 </html>
