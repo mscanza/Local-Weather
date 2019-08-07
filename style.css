@@ -5,4 +5,29 @@ html, body {
 
 body {
     text-align: center;
+    font-family: sans-serif;
+}
+
+#weather-image {
+	display: block;
+	margin: auto;
+}
+
+#celsius-container, #fahrenheit-container {
+	display: inline-block;
+	margin-top: 1rem;
+}
+#details-left {
+	display: inline-block;
+	text-align: right;
+}
+
+#details-right {
+	margin-left: 10px;
+	display: inline-block;
+	text-align: left;
+}
+
+p {
+	margin: 8px 0;
 }
