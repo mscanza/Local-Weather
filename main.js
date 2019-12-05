@@ -5,6 +5,8 @@ let celsius = document.querySelector('#celsius');
 let fahrenheit = document.querySelector('#fahrenheit')
 let city = document.querySelector('#city');
 let tempDegrees;
+let lowDegrees;
+let highDegrees;
 
 let humidity = document.querySelector('#humidity');
 let pressure = document.querySelector('#pressure');
@@ -13,6 +15,13 @@ let high = document.querySelector('#high');
 let sunrise = document.querySelector('#sunrise');
 let sunset = document.querySelector('#sunset');
 let wind = document.querySelector('#wind');
+
+
+let backgrounds = {
+	overcast: 'https://images.unsplash.com/photo-1499956827185-0d63ee78a910?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80',
+	"Clear": 'https://images.unsplash.com/photo-1445985202117-5acf50779a3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80'
+}
+
 
 let windDegrees = function(num) {
 	if ((num >= 0 && num <= 25) || num > 340 ) {
@@ -38,10 +47,14 @@ time.innerHTML = new Date().toDateString()
 
 
 fahrenheit.addEventListener('click', function() {
-	temperature.textContent = Math.round(tempDegrees * (9/5) + 32) + '˚ ' + 'F';
+	temperature.textContent = Math.round(tempDegrees * (9/5) + 32) + '˚ F';
+	low.textContent = Math.round(lowDegrees * (9/5) + 32) + '˚ F';
+	high.textContent = Math.round(highDegrees * (9/5) + 32) + '˚ F';
 })
 celsius.addEventListener('click', function() {
-	temperature.textContent = Math.round(tempDegrees) + '˚ ' + 'C';
+	temperature.textContent = Math.round(tempDegrees) + '˚ C';
+	low.textContent = Math.round(lowDegrees) + '˚ C';
+	high.textContent = Math.round(highDegrees) + '˚ C';
 })
 
 
@@ -60,14 +73,19 @@ let longitude = position.coords.longitude;
 		let sunsetTime = new Date(parsed.sys.sunset * 1000)
 
 		weatherImage.src = parsed.weather[0].icon;
+
 		tempDegrees = parsed.main.temp
-		temperature.textContent = Math.round(tempDegrees * (9/5) + 32) + '˚ ' + 'F';
+		lowDegrees = parsed.main.temp_min;
+		highDegrees = parsed.main.temp_max;
+
+		temperature.textContent = Math.round(tempDegrees * (9/5) + 32) + '˚ F';
 		city.textContent = parsed.name;
+		document.getElementsByTagName('body')[0].style.backgroundImage = "url(" + backgrounds[parsed.weather[0].main] + ")";
 
 		humidity.textContent = parsed.main.humidity + '%';
 		pressure.textContent = parsed.main.pressure;
-		low.textContent = parsed.main.temp_min;
-		high.textContent = parsed.main.temp_max;
+		low.textContent = Math.round(lowDegrees * (9/5) + 32) + '˚ F';
+		high.textContent = Math.round(highDegrees * (9/5) + 32) + '˚ F';
 		sunrise.textContent = sunriseTime.getHours() + ':' + sunriseTime.getMinutes();
 		sunset.textContent = sunsetTime.getHours() + ':' + sunsetTime.getMinutes();
 		wind.textContent = parsed.wind.speed + ' ' + windDegrees(parsed.wind.deg);
