@@ -1,2 +1,2 @@
 # local-weather
-FCC project
+A weather app using HTML5 geolocation and external weather API.
